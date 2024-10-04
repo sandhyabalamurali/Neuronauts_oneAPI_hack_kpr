@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="logo">
+                <h1>MEDOLLA</h1>
+            </div>
+            <nav class="dashboard-nav">
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+            </nav>
+        </header>
+
+        <section class="dashboard-main">
+            <div class="dashboard-info">
+                <h2>Personal Health Dashboard</h2>
+                <form id="health-form" action="{{ url_for('dashboard') }}" method="post">
+                    <div class="dashboard-form-group">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
+                    </div>
+
+                    <div class="dashboard-form-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required>
+                    </div>
+
+                    <div class="dashboard-form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+
+                    <div class="dashboard-form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" placeholder="Enter your age" required>
+                    </div>
+
+                    <div class="dashboard-form-group dashboard-gender">
+                        <label>Gender</label>
+                        <input type="radio" id="male" name="gender" value="Male" required>
+                        <label for="male">Male</label>
+                        <input type="radio" id="female" name="gender" value="Female">
+                        <label for="female">Female</label>
+                        <input type="radio" id="others" name="gender" value="Others">
+                        <label for="others">Others</label>
+                    </div>
+
+                    <div class="dashboard-form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    </div>
+
+                    <div class="dashboard-form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="dashboard-form-group">
+                        <label for="blood-group">Blood Group</label>
+                        <input type="text" id="blood-group" name="blood-group" placeholder="Enter your blood group" required>
+                    </div>
+
+                    <div class="dashboard-form-group">
+                        <label for="height">Height</label>
+                        <input type="text" id="height" name="height" placeholder="Enter your height" required>
+                    </div>
+
+                    <div class="dashboard-form-group">
+                        <label for="weight">Weight</label>
+                        <input type="text" id="weight" name="weight" placeholder="Enter your weight" required>
+                    </div>
+
+                    <div class="dashboard-buttons">
+                        <button type="submit" class="dashboard-btn submit">Submit</button>
+                        <button type="button" class="dashboard-btn cancel" id="reset-button">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Function to handle form submission
+        document.getElementById("health-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Get user input
+            const userInfo = {
+                firstName: document.getElementById("first-name").value,
+                lastName: document.getElementById("last-name").value,
+                dob: document.getElementById("dob").value,
+                age: document.getElementById("age").value,
+                gender: document.querySelector('input[name="gender"]:checked').value,
+                phone: document.getElementById("phone").value,
+                email: document.getElementById("email").value,
+                bloodGroup: document.getElementById("blood-group").value,
+                height: document.getElementById("height").value,
+                weight: document.getElementById("weight").value
+            };
+
+            // Store data in localStorage (this can be removed if you do not want this functionality)
+            localStorage.setItem("userData", JSON.stringify(userInfo));
+
+            // Redirect to a new page after submission
+            window.location.href = "submit_success.html";  // This could be a custom success page
+        });
+
+        // Function to handle form reset
+        document.getElementById("reset-button").addEventListener("click", function() {
+            document.getElementById("health-form").reset(); // Clear the form
+            localStorage.removeItem("userData");  // Clear local storage if needed
+        });
+    </script>
+</body>
+</html>
+

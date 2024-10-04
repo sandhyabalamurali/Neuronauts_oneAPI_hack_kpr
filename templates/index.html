@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MEDOLLA Healthcare</title>
+
+    <!-- Styles and font-awesome for the landing page -->
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <style>
+      /* Video Styles */
+      #bg-video {
+        position: fixed;  /* Use fixed instead of absolute for full coverage */
+        top: 0;
+        left: 0;
+        width: 100%;  /* Use 100% width */
+        height: 100%;  /* Use 100% height */
+        object-fit: cover; /* Ensures the video covers the entire background */
+        z-index: -10; /* Ensure the video stays behind other elements */
+        opacity: 0.4;
+      }
+
+      body {
+        margin: 0;  /* Remove default margin */
+      }
+
+      .landing-container {
+        position: relative;
+        height: 100vh;  /* Ensure it takes the full height of the viewport */
+        backdrop-filter: blur(10000px);
+      }
+
+      
+    </style>
+    
+  </head>
+
+  <body>
+    <!-- Main container for landing page -->
+    <div class="landing-container">
+      <!-- Background Video -->
+    <video autoplay muted loop id="bg-video">
+      <source src="../static/videos/pulse1.mp4" type="video/mp4" />
+    </video>
+      <canvas id="3d-canvas"></canvas>
+      <!-- 3D Canvas -->
+      <div class="landing-page">
+        <div class="landing-overlay">
+          <header>
+            <h1 class="logo">
+              <span class="med">MED</span><span class="olla">OLLA</span>
+            </h1>
+            <nav>
+              <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="../templates/login.html">Login</a></li>
+              </ul>
+            </nav>
+          </header>
+
+          <section class="landing-main">
+            <h2 class="landing-title">Your Health, Our Priority</h2>
+            <p class="landing-subtitle">
+              Revolutionizing healthcare with advanced technology and
+              personalized care.
+            </p>
+            <a href="../templates/login.html" class="start-btn">Get Started</a>
+          </section>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Success - Health Hunch</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <!-- Link to your CSS for styling -->
+    <style>
+      /* Basic styles for the success page */
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #0e0e0e; /* Dark background */
+        color: #00ffcc; /* Neon teal text */
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0; /* Remove default margin */
+      }
+
+      /* Circle container styles */
+      .circle-container {
+        display: flex;
+        justify-content: space-around; /* Space out the circles evenly */
+        margin-bottom: 40px; /* Margin for spacing */
+        width: 100%; /* Full width */
+        max-width: 800px; /* Max width to prevent stretching on large screens */
+      }
+
+      /* Each circle and text wrapper */
+      .circle-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center both circle and text */
+      }
+
+      /* Styles for each circle */
+      .circle {
+        width: 200px; /* Circle diameter */
+        height: 200px; /* Circle diameter */
+        border-radius: 50%; /* Make it a circle */
+        background-color: rgba(0, 255, 204, 0.7);
+        display: flex;
+        justify-content: center; /* Center image in circle */
+        align-items: center; /* Center image in circle */
+        box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin: 0 20px; /* Spacing between circles */
+      }
+
+      /* Styles for images inside the circle */
+      .circle img {
+        width: 80%; /* Image size (consistent for all circles) */
+        height: auto; /* Maintain aspect ratio */
+      }
+
+      .circle:hover {
+        transform: scale(1.1); /* Slightly enlarge on hover */
+        box-shadow: 0 0 25px rgba(0, 255, 204, 0.8); /* Brighter glow on hover */
+      }
+
+      /* Link styles for text below circles */
+      .agent-link {
+        margin-top: 10px;
+        font-size: 18px; /* Font size for the links */
+        color: #00ffcc; /* Neon teal text */
+        text-decoration: none; /* Remove underline */
+        display: block; /* Make sure the link is block level for better spacing */
+      }
+
+      /* Styling for the success message */
+      .success-message {
+        margin-top: 20px; /* Spacing above the success message */
+        font-size: 24px; /* Larger text for the message */
+        font-weight: bold; /* Bold text */
+        color: #00ffcc; /* Neon color */
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 600px) {
+        .circle-container {
+          flex-direction: column; /* Stack circles on smaller screens */
+          align-items: center; /* Center circles */
+        }
+
+        .circle {
+          margin: 10px 0; /* Vertical margin */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="circle-container">
+      <!-- Circle and text wrapper for each agent -->
+      <div class="circle-wrapper">
+        <div class="circle">
+          <img src="../images/general.png" alt="General Agent" />
+        </div>
+        <a href="../templates/bot.html" class="agent-link">General Agent</a>
+      </div>
+
+      <div class="circle-wrapper">
+        <div class="circle">
+          <img src="../images/personal.png" alt="Personalize Agent" />
+        </div>
+        <a href="personalize_agent.html" class="agent-link"
+          >Personalize Agent</a
+        >
+      </div>
+
+      <div class="circle-wrapper">
+        <div class="circle">
+          <img src="../images/preg.png" alt="Pregnancy Agent" />
+        </div>
+        <a href="pregnancy_agent.html" class="agent-link">Pregnancy Agent</a>
+      </div>
+    </div>
+
+    <h1 class="success-message">Sign Up Successful!</h1>
+  </body>
+</html>

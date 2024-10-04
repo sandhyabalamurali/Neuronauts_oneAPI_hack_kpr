@@ -1,0 +1,654 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Shared Styles */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Button Hover Effect */
+button, .start-btn {
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .start-btn:hover {
+    background-color: #00E0A0;
+}
+
+/* Styles specific to the landing page */
+.landing-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Canvas Styles */
+#3d-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -6; /* Ensure the 3D canvas stays behind other content */
+}
+.landing-overlay {
+    padding: 20px;
+    width: 100%;
+}
+
+/* Landing Header */
+.landing-container header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 50px;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+
+.landing-container .logo {
+    font-size: 40px;
+    display: flex;
+    position: relative;
+    top:-25px;
+}
+
+.med {
+    background: linear-gradient(45deg, #00FFB9, #FF00E1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.olla {
+    background: linear-gradient(45deg, #00BFFF, #FF5733);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Landing Navigation Menu */
+.landing-container nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding-right: 100px;
+}
+
+.landing-container nav ul li {
+    display: inline;
+}
+
+.landing-container nav ul li a {
+    color: #fff;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.landing-container nav ul li a:hover {
+    color: #00FFB9;
+}
+
+/* Landing Hero Section */
+.landing-main {
+    margin-top: 60px;
+    text-align: center;
+    z-index: 1;
+}
+
+.landing-title {
+    font-size: 50px;
+    background: linear-gradient(45deg, #bcdad8, #a384d4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+.landing-subtitle {
+    margin: 30px;
+    font-size: 20px;
+    color: #fefdfe;
+}
+
+.start-btn {
+    padding: 8px 30px;
+    background-color: #06DDD5;
+    color: black;
+    font-size: 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+/* Styles for the button-box */
+.features-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 30px;
+}
+
+.button-box {
+    background-color: rgba(20, 20, 20, 0.85); /* Darker background for better contrast */
+    border-radius: 12px;
+    padding: 40px; /* Reduced padding */
+    text-align: center;
+    width: 20%; /* Reduced width */
+    transition: transform 0.3s ease, box-shadow 0.5s ease;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2), 0 0 30px rgba(123, 36, 255, 0.3);
+    position: relative;
+    color: #f0f0f0;
+}
+
+.button-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(0, 123, 255, 0.4), 0 0 40px rgba(123, 36, 255, 0.4);
+}
+
+.button-box i {
+    font-size: 3rem; /* Reduced icon size */
+    color: #c4f2f0; /* Softer blue */
+    margin-bottom: 15px; /* Reduced margin */
+    transition: transform 0.3s ease, color 0.3s ease;
+    text-shadow: 0 0 15px rgba(0, 123, 255, 0.5), 0 0 20px rgba(123, 36, 255, 0.4);
+}
+
+.button-box i:hover {
+    transform: scale(1.1);
+}
+
+.button-box h3 {
+    font-size: 22px; /* Slightly smaller font */
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #3BD1FF, #FF70D5);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 8px rgba(0, 123, 255, 0.4), 0 0 10px rgba(123, 36, 255, 0.5);
+}
+
+.button-box .feature-btn {
+    display: inline-block;
+    background-color: #84daf5; /* Softer button color */
+    color: #000;
+    padding: 8px 16px; /* Smaller button size */
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px; /* Reduced font size */
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button-box .feature-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Styles specific to the login page */
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+.login-background {
+    position: relative;
+    width: 100%;
+}
+
+.login-logo {
+    position: absolute;
+    font-size: 200px;
+    font-weight: bold;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.1);
+    user-select: none;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-container .med {
+    background: linear-gradient(45deg, #00FFB9, #FF00E1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.login-container .olla {
+    background: linear-gradient(45deg, #00BFFF, #FF5733);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.login-overlay {
+    position: relative;
+    z-index: 1;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.7);
+    text-align: center;
+    max-width: 400px;
+    margin: auto;
+}
+
+.login-title {
+    color: #00FFB9;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #222;
+    border: none;
+    border-bottom: 2px solid #FF00E1;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+    border-bottom-color: #00FFB9;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #00FFB9;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #000;
+    cursor: pointer;
+}
+
+.signup-text {
+    margin-top: 15px;
+    color: #fff;
+}
+
+.signup-text a {
+    color: #00FFB9;
+    text-decoration: underline;
+}
+
+/* Dashboard Page Styles */
+.dashboard-container {
+    background-color: #000;
+    color: #fff;
+    padding: 30px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e1e1e;
+    padding: 10px;
+    border-bottom: 2px solid #00ffe0;
+}
+
+.dashboard-header .logo h1 {
+    color: #00ffe0;
+    font-size: 24px;
+}
+
+.dashboard-nav a {
+    color: #00ffe0;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.dashboard-nav a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-main {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.dashboard-info {
+    width: 60%;
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 224, 0.3);
+}
+
+.dashboard-info h2 {
+    color: #00ffe0;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+/* Form Styles */
+.dashboard-form-group {
+    margin-bottom: 20px;
+}
+
+.dashboard-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #00ffe0;
+}
+
+.dashboard-form-group input[type="text"],
+.dashboard-form-group input[type="tel"],
+.dashboard-form-group input[type="email"],
+.dashboard-form-group input[type="number"],
+.dashboard-form-group input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #2e2e2e;
+    color: #fff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 255, 224, 0.3);
+}
+
+.dashboard-form-group input::placeholder {
+    color: #bbb;
+}
+
+.dashboard-form-group input:focus {
+    box-shadow: 0 0 10px #00ffe0;
+}
+
+/* Gender radio buttons */
+.dashboard-gender {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.dashboard-gender input[type="radio"] {
+    margin-right: 10px;
+}
+
+.dashboard-gender label {
+    color: #00ffe0;
+}
+
+/* Button styling */
+.dashboard-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.dashboard-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.dashboard-btn.submit {
+    background-color: #00ffe0;
+    color: #000;
+    margin-right: 15px;
+}
+
+.dashboard-btn.submit:hover {
+    background-color: #06DDD5;
+}
+
+.dashboard-btn.cancel {
+    background-color: #ff4e4e;
+    color: #fff;
+}
+
+.dashboard-btn.cancel:hover {
+    background-color: #ff6e6e;
+}
+/*SIGNUP*/
+/* Signup Container */
+.signup-container {
+    width:80%;
+    margin: 50px auto; /* Centered with margin on top and bottom */
+    padding: 30px;
+    background: linear-gradient(135deg, #1a1a1a, #282828); /* Subtle gradient */
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8); /* Soft shadow for depth */
+}
+
+/* Header */
+.signup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #00ffcc; /* Neon teal border */
+    padding-bottom: 15px;
+}
+
+/* Logo */
+.signup-logo h1 {
+    font-size: 2.5em;
+
+    background: linear-gradient(45deg, #00FFB9, #FF00E1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* Navigation */
+.signup-nav a {
+    color: #e0e0e0; /* Light color for links */
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s, text-shadow 0.3s; /* Smooth transition */
+}
+
+.signup-nav a:hover {
+    color: #00ffcc; /* Neon teal on hover */
+    text-shadow: 0 0 10px #00ffcc; /* Glow effect on hover */
+}
+
+/* Signup Form Section */
+.signup-form-section {
+    margin-top: 20px;
+}
+
+.signup-title {
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00ffcc; /* Neon teal */
+}
+
+/* Signup Form */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form Group */
+.signup-form-group {
+    margin-bottom: 20px;
+}
+
+.signup-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #e0e0e0; /* Light color for labels */
+}
+
+.signup-form-group input {
+    padding: 15px;
+    padding-right: 270px;
+    border: 2px solid #00ffcc; /* Neon teal border */
+    border-radius: 5px;
+    background-color: #222; /* Dark background for inputs */
+    color: #e0e0e0; /* Light text in inputs */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transition effects */
+}
+
+.signup-form-group input:focus {
+    border-color: #00b3b3; /* Slightly darker teal on focus */
+    box-shadow: 0 0 5px #00ffcc; /* Glow effect on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Form Buttons */
+.signup-form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signup-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+}
+
+/* Submit Button */
+.signup-btn.submit {
+    background-color: #00ffcc; /* Neon teal */
+    color: #0e0e0e; /* Dark text for contrast */
+}
+
+.signup-btn.submit:hover {
+    background-color: #00b3b3; /* Darker teal on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Reset Button */
+.signup-btn.reset {
+    background-color: #555; /* Dark gray */
+    color: #e0e0e0; /* Light text */
+}
+
+.signup-btn.reset:hover {
+    background-color: #777; /* Lighter gray on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Footer */
+.signup-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup-footer a {
+    color: #00ffcc; /* Neon teal */
+    text-decoration: none;
+}
+
+.signup-footer a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #00b3b3; /* Darker teal on hover */
+}
+/* Post Signup Buttons Section */
+.post-signup-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.option-btn {
+    padding: 12px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #00ffcc; /* Neon teal */
+    color: #0e0e0e; /* Dark text for contrast */
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+}
+
+.option-btn:hover {
+    background-color: #00b3b3; /* Darker teal on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .landing-container header {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .landing-container nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding-right: 0;
+    }
+
+    .landing-main {
+        margin-top: 100px;
+    }
+
+    .landing-title {
+        font-size: 36px;
+    }
+
+    .start-btn {
+        font-size: 18px;
+    }
+
+    .login-logo {
+        font-size: 150px;
+    }
+
+    .login-title {
+        font-size: 32px;
+    }
+
+    .login-form input {
+        font-size: 14px;
+    }
+
+    .login-form button {
+        font-size: 16px;
+    }
+}
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .features-container {
+        flex-direction: column;
+    }
+
+    .button-box {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
+
