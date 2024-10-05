@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, send_file
 from langchain_chroma import Chroma
 from langchain.prompts import ChatPromptTemplate
 from embedding import get_embedding_function
@@ -7,22 +6,22 @@ from groq import Groq
 import os
 import easyocr
 import json
-from googleapiclient.discovery import build
+import numpy as np
+from sklearnex import patch_sklearn,config_context
 
-# Set up your YouTube API key here
-YOUTUBE_API_KEY = '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'
 
 os.environ['GROQ_API_KEY'] = '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'
 
 app = Flask(__name__)
 
-CHROMA_PATH = "chroma2"
-UPLOAD_FOLDER = "uploads2"  # Folder to save uploaded images
+CHROMA_PATH = "chroma"
+UPLOAD_FOLDER = "uploads"  # Folder to save uploaded images
 HISTORY_FILE = "conversation_history.json"  # File to store conversation history
 
 # Ensure the folders exist
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+for folder in [UPLOAD_FOLDER]:
+    if not os.path.exists(folder):
+        os.makedirs(folder)
 
 PROMPT_TEMPLATE = """
 Based on the full conversation history and report text, answer the question briefly:
@@ -36,14 +35,14 @@ Report Context:
 
 ---
 
-Answer this question briefly only based on the above report context and full conversation history. If not found, don't tell anything. Don't use your prior knowledge. Question: {question}
+Answer this question briefly only based on above report context and full conversation history ,if not found don't tell anything,dont use your prior knowledge question : {question}
 """
 
 # Load conversation history from a file if it exists
 if os.path.exists(HISTORY_FILE):
     with open(HISTORY_FILE, 'r') as f:
-        conversation_history = json.load(f)
-else:
+        conversation_history = json.load(f) 
+else:   
     conversation_history = {}
 
 # Initialize EasyOCR reader
@@ -69,46 +68,12 @@ def ocr_local_image_full(image_path):
     report_text = " ".join([item['text'] for item in detected_text])
     return report_text
 
-def search_youtube_videos(query):
-    youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
-
-    request = youtube.search().list(
-        part='snippet',
-        q=query,
-        type='video',
-        maxResults=5  # Adjust the number of results as needed
-    )
-    response = request.execute()
-
-    videos = []
-    for item in response.get('items', []):
-        video_id = item['id']['videoId']
-        title = item['snippet']['title']
-        url = f"https://www.youtube.com/watch?v={video_id}"
-        videos.append({
-            'title': title,
-            'url': url
-        })
-    
-    return videos
-
 def query_retro_rag(user_id: str, query_text: str) -> str:
-    # Define keywords that trigger YouTube video recommendations
-    keywords = ["diet", "exercise", "tips", "care", "nutrition", "health", "advice", "pregnancy", "motherhood"]
-    
-    # Check if any keyword is in the user's query
-    if any(keyword.lower() in query_text.lower() for keyword in keywords):
-        # If a keyword is found, search for YouTube videos
-        recommended_videos = search_youtube_videos(query_text)
-        video_response = "\n".join([f"{video['title']}: {video['url']}" for video in recommended_videos])
-        return video_response  # Return the video links as a string
-    
-    # If no keywords are matched, proceed with normal response generation
     # Step 1: First retrieval pass based on the initial query
     embedding_function = get_embedding_function()
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
     results_first_pass = db.similarity_search_with_score(query_text, k=5)
-
+    
     # Combine the context from the first retrieval
     context_text_1 = "\n\n---\n\n".join([doc.page_content for doc, _ in results_first_pass])
 
@@ -122,20 +87,20 @@ def query_retro_rag(user_id: str, query_text: str) -> str:
     # Step 2: Generate initial response based on the first retrieval context
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     initial_prompt = prompt_template.format(
-        conversation_history=full_conversation,
-        question=query_text,
-        context_text=context_text_1,
+        conversation_history=full_conversation, 
+        question=query_text, 
+        context_text=context_text_1, 
         context_text2=""  # Initially empty for the second pass
     )
-
+    
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
     initial_chat_completion = client.chat.completions.create(
-        messages=[{"role": "system", "content": "You are an AI-powered pregnancy care chatbot. Ask the user how many months they are into their pregnancy, inquire about any inconveniences they are facing, and provide diet plan suggestions and relevant advice. If any other questions are asked, do not answer and don't recommend specific clinics."}] + history,
+        messages=[{"role": "system", "content": "You are an summarizer for an AI-powered medical chatbot to enhance the a given query for enhanced retrieval"}] + history,
         model="llama-3.1-70b-versatile",
         temperature=0.5,
         top_p=0.90,
     )
-
+    
     initial_response_text = initial_chat_completion.choices[0].message.content
 
     # Step 3: Use the initial response to perform a second retrieval (refining the query)
@@ -154,7 +119,7 @@ def query_retro_rag(user_id: str, query_text: str) -> str:
     )
 
     final_chat_completion = client.chat.completions.create(
-        messages=[{"role": "system", "content": "You are an AI-powered pregnancy care chatbot. Ask the user how many months they are into their pregnancy, inquire about any inconveniences they are facing, and provide diet plan suggestions and relevant advice. If any other questions are asked, do not answer and don't recommend specific clinics."}] + history,
+        messages=[{"role": "system", "content": "You are an AI-powered medical chatbot used for diagnosis and tablet recommendation. Before that, ask previous medical condition, age, sex, and if the sex is female, ask if pregnant. Analyze the report and medical advice based on the context only dont use your prior knowledge only more concisely. If any other questions are asked, do not answer and dont recommend specific clinic."}] + history,
         model="llama-3.1-70b-versatile",
         temperature=0.4,
         top_p=0.90,
@@ -169,6 +134,7 @@ def query_retro_rag(user_id: str, query_text: str) -> str:
 
     # Return the final formatted response
     return final_response_text
+
 
 @app.route('/')
 def index():
@@ -203,7 +169,7 @@ def upload_image():
     os.remove(image_path)  # Clean up the uploaded image file
 
     # Add instruction to analyze the report
-    report_text += "\n \n Analyze this report very briefly and give detailed insights."
+    report_text += "\n \n Analyse this report veryy briefly and give the very detailed insights."
 
     # Perform the chatbot query using the extracted text
     user_id = 'default_user'
@@ -229,30 +195,3 @@ def clear_history():
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8000, debug=True)
-=======
-from flask import Flask, request, redirect, render_template, flash
-
-from signup import signup_user
-
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Required for session management
-
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        
-        # Call the signup_user function (make sure this function is defined/imported)
-        signup_user(username, email, password)
-
-        # Redirect to a success page
-        return redirect('/signup_success.html')
-    
-    # Render the signup page
-    return render_template('signup.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
->>>>>>> acbfd6d97a3d50af35de90b1ea920d808bcf5877
